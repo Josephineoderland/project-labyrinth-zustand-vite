@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react"
-import useGameState from "../zustand/useGameState"
-
+import { useState, useEffect } from "react";
+import useGameState from "../zustand/useGameState";
 
 const GameComponent = ({ username }) => {
-  const { gameState, setGameState } = useGameState()
-  const [showInfo, setShowInfo] = useState({})
-  const [showOptions, setShowOptions] = useState(true)
+  const { gameState, setGameState } = useGameState();
+  const [showInfo, setShowInfo] = useState({});
+  const [showOptions, setShowOptions] = useState(true);
 
   useEffect(() => {
-    startGame()
-  }, [])
+    startGame();
+  }, []);
 
   const startGame = () => {
     fetch("https://labyrinth.technigo.io/start", {
@@ -23,14 +22,14 @@ const GameComponent = ({ username }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setGameState(data)
-        setShowInfo({})
-        setShowOptions(new Array(data.actions.length).fill(true))
+        setGameState(data);
+        setShowInfo({});
+        setShowOptions(new Array(data.actions.length).fill(true));
       })
       .catch((error) => {
-        console.error("Error:", error)
-      })
-  }
+        console.error("Error:", error);
+      });
+  };
 
   const handleAction = (action) => {
     fetch("https://labyrinth.technigo.io/action", {
@@ -46,31 +45,31 @@ const GameComponent = ({ username }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setGameState(data)
-        setShowInfo({})
+        setGameState(data);
+        setShowInfo({});
         setShowOptions((prevOptions) => {
-          const newOptions = [...prevOptions]
-          newOptions[action.index] = true
-          return newOptions
-        })
+          const newOptions = [...prevOptions];
+          newOptions[action.index] = true;
+          return newOptions;
+        });
       })
       .catch((error) => {
-        console.error("Error:", error)
-      })
-  }
+        console.error("Error:", error);
+      });
+  };
 
   const handleShowInfo = (index) => {
-    setShowInfo({ [index]: true })
+    setShowInfo({ [index]: true });
     setShowOptions((prevOptions) => {
-      const newOptions = [...prevOptions]
-      newOptions[index] = false
-      return newOptions
-    })
-  }
+      const newOptions = [...prevOptions];
+      newOptions[index] = false;
+      return newOptions;
+    });
+  };
 
   useEffect(() => {
-    setShowInfo({})
-  }, [gameState?.actions])
+    setShowInfo({});
+  }, [gameState?.actions]);
 
   return (
     <div>
@@ -83,22 +82,14 @@ const GameComponent = ({ username }) => {
               {showInfo[index] ? (
                 <p>{action.description}</p>
               ) : (
-                
-                  <button onClick={() => handleShowInfo(index)}>
-                    More Info
-                  </button>)}
-                  {showOptions && (
-                    <button onClick={() => handleAction(action)}>
-                      {action.direction}
-                    </button>
-                  )}
-                
-             
+                <button onClick={() => handleShowInfo(index)}>More Info</button>
+              )}
+              {showOptions && <button onClick={() => handleAction(action)}>{action.direction}</button>}
             </li>
           ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default GameComponent
+export default GameComponent;
