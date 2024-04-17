@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
+import "../css/login.css";
 
 const LoginComponent = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
 
   const handleInputChange = (event) => {
     setUsername(event.target.value);
@@ -13,14 +14,15 @@ const LoginComponent = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h2>Logga in</h2>
+    <div className="login-container">
+      <h1>My Labyrinth Game</h1>
+      <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Användarnamn:
+          Username:
           <input type="text" value={username} onChange={handleInputChange} />
         </label>
-        <button type="submit">Logga in</button>
+        <button type="submit">Start!</button>
       </form>
     </div>
   );
