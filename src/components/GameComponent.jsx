@@ -83,10 +83,18 @@ const GameComponent = ({ username }) => {
               {showInfo[index] ? (
                 <p>{action.description}</p>
               ) : (
-                <button onClick={() => handleShowInfo(index)}>More Info</button>
+                <button
+                  className="info-button"
+                  onClick={() => handleShowInfo(index)}
+                >
+                  More Info
+                </button>
               )}
               {showOptions && (
-                <button onClick={() => handleAction(action)}>
+                <button
+                  className="direction-button"
+                  onClick={() => handleAction(action)}
+                >
                   {action.direction}
                 </button>
               )}
